@@ -1,1 +1,51 @@
-r
+import capos.*
+
+describe "Capos Parte 1" {
+  test "Rolando empieza sin artefactos" {
+    assert.that(rolando.artefactos().isEmpty())
+  }
+  
+  test "Rolando sin artefactos y con capacidad 2, encuentra la espada, el libro y el collar en ese orden y solo agarra los dos primeros" {
+    rolando.encontrar(espada)
+    rolando.encontrar(libro)
+    rolando.encontrar(collar)
+    
+    assert.equals(#{espada, libro}, rolando.artefactos())
+  }
+  
+  test "Rolando con espada y libro, los deja en el castillo, luego con collar pasa lo mismo." {
+    rolando.encontrar(espada)
+    rolando.encontrar(libro)
+    rolando.irAMorada()
+    assert.equals(#{}, rolando.artefactos())
+    // Esto se podria evitar, es para ver si funciona la primera parte.
+    assert.equals(#{espada, libro}, castillo.baul())
+    // Esto se podria evitar, es para ver si funciona la primera parte.
+    
+    rolando.encontrar(collar)
+    rolando.irAMorada()
+    assert.equals(#{}, rolando.artefactos())
+    assert.equals(#{espada, libro, collar}, castillo.baul())
+  }
+  
+  test "Si el castillo tiene el collar y la espada y Rolando la armadura, entonces sus posesiones son esos 3 artefactos." {
+    castillo.depositar(#{collar, espada})
+    rolando.encontrar(armadura)
+    
+    assert.equals(#{collar, espada, armadura}, rolando.posesiones())
+  }
+  
+  test "Rolando encuentra la espada, el libro, y el collar (pero no lo agarra), vuelve al castillo y de camino de vuelta encuentra una armadura y un collar. Su historial es todo lo que encontró en el camino, a pesar de no haberlo agarrado." {
+    rolando.encontrar(espada)
+    rolando.encontrar(libro)
+    rolando.encontrar(collar)
+    rolando.irAMorada()
+    rolando.encontrar(armadura)
+    rolando.encontrar(collar)
+    
+    assert.equals(
+      [espada, libro, collar, armadura, collar],
+      rolando.historial()
+    )
+  }
+}
