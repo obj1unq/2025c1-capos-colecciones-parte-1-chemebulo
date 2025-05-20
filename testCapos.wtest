@@ -18,9 +18,7 @@ describe "Capos Parte 1" {
     rolando.encontrar(libro)
     rolando.irAMorada()
     assert.equals(#{}, rolando.artefactos())
-    // Esto se podria evitar, es para ver si funciona la primera parte.
     assert.equals(#{espada, libro}, castillo.baul())
-    // Esto se podria evitar, es para ver si funciona la primera parte.
     
     rolando.encontrar(collar)
     rolando.irAMorada()
@@ -43,9 +41,6 @@ describe "Capos Parte 1" {
     rolando.encontrar(armadura)
     rolando.encontrar(collar)
     
-    assert.equals(
-      [espada, libro, collar, armadura, collar],
-      rolando.historial()
-    )
+    assert.equals([espada, libro, collar, armadura, collar], rolando.historial())
   }
 }
